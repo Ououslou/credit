@@ -24,7 +24,7 @@ int main(void)
     if (n < 13) // return invalid and quit program if input less than 13 digits.
     {
         printf("INVALID\n");
-        return (0);
+        return 0;
     }
 
     int iar[n]; // I had to declare the array here to avoid problems of scope/compiling..
@@ -62,15 +62,6 @@ int main(void)
 
 ////* H E L P E R    F U N C T I O N S *////
 
-void dividef(int pn, int array[]) // divides user input into integers & stores them in an array of length n.
-{
-    for (int i = pn - 1; i >= 0; i--)
-    {
-        array[i] = in % 10;
-        in /= 10;
-    }
-}
-
 bool boolf(int bn) // checks if n is withing acceptable range.
 {
     if (bn == 13 || bn == 15 || bn == 16)
@@ -94,6 +85,15 @@ bool count(long long i2) // counts number of digits of the user input.
     }
 
     return boolf(n);
+}
+
+void dividef(int pn, int array[]) // divides user input into integers & stores them in an array of length n.
+{
+    for (int i = pn - 1; i >= 0; i--)
+    {
+        array[i] = in % 10;
+        in /= 10;
+    }
 }
 
 int digits(int dn) // determines how long will the int m array be.
@@ -129,29 +129,8 @@ bool checksumf(int summ) // checks if sum begins with a zero.
     }
 }
 
-int whtcardf(int n14, int iar14) // returns what type of card it is.
+int checksumff(int nx, int mx, int iarray[], int secdarray[]) // counting the sum.
 {
-    if (n14 == 15 && (iar14 == 34 || iar14 == 37))
-    {
-        return 1;
-    }
-
-    else if ((n14 == 13 || n14 == 16) && (iar14 / 10) == 4)
-    {
-        return 2;
-    }
-
-    else if (n14 == 16 && (iar14 > 50 && iar14 < 56))
-    {
-        return 3;
-    }
-
-    return 0;
-}
-
-int checksumff(int nx, int mx, int iarray[], int secdarray[])
-{
-
     int sumx = 0;
 
     for (int i = nx - 1; i > 0; i -= 2, mx--) // LOOP 1 //
@@ -164,7 +143,8 @@ int checksumff(int nx, int mx, int iarray[], int secdarray[])
 
     for (int i = m2; i > 0; i--) // LOOP 2 // Summing secd[i]s & storing result into an int named sum.
     {
-        if (secdarray[i - 1] > 9) // if one of the secd[m] integers is made of 2 digits, sum them together then add to sum.
+        // if one of the secd[m] integers is made of 2 digits, sum them together then add to sum.
+        if (secdarray[i - 1] > 9)
         {
             sumx += secdarray[i - 1] % 10; //adding remainder to sum.
             sumx += secdarray[i - 1] /= 10; // adding next digit to sum.
@@ -194,4 +174,24 @@ int checksumff(int nx, int mx, int iarray[], int secdarray[])
     }
 
     return sumx;
+}
+
+int whtcardf(int n14, int iar14) // returns what type of card it is.
+{
+    if (n14 == 15 && (iar14 == 34 || iar14 == 37))
+    {
+        return 1;
+    }
+
+    else if ((n14 == 13 || n14 == 16) && (iar14 / 10) == 4)
+    {
+        return 2;
+    }
+
+    else if (n14 == 16 && (iar14 > 50 && iar14 < 56))
+    {
+        return 3;
+    }
+
+    return 0;
 }
